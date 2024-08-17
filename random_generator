@@ -6,18 +6,27 @@ def generate_random_string(length=7):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
 
-# Get user input
-num_instances = int(input("Enter the number of EC2 instance names you want: "))
-department_name = input("Enter your department name: ")
+# List of authorized departments
+authorized_departments = ["Marketing", "Accounting", "FinOps"]
 
-# Generate and display unique EC2 names
-ec2_names = []
-for _ in range(num_instances):
-    random_string = generate_random_string()
-    ec2_name = f"{department_name}-{random_string}"
-    ec2_names.append(ec2_name)
+# Get user input for the department
+department_name = input("Enter your department name): ").strip().capitalize()
 
-# Output the generated EC2 names
-print("\nGenerated EC2 instance names:")
-for name in ec2_names:
-    print(name)
+# Check if the department is allowed
+if department_name not in authorized_departments:
+    print(f"Error: The {department_name} department is not authorized to use this Name Generator.")
+else:
+    # Get user input for the number of EC2 instances
+    num_instances = int(input("Enter the number of EC2 instance names you want: "))
+
+    # Generate and display unique EC2 names
+    ec2_names = []
+    for _ in range(num_instances):
+        random_string = generate_random_string()
+        ec2_name = f"{department_name}-{random_string}"
+        ec2_names.append(ec2_name)
+
+    # Output the generated EC2 names
+    print("\nGenerated EC2 instance names:")
+    for name in ec2_names:
+        print(name)
